@@ -11,13 +11,13 @@ other files are found in oracallib.php. You may use the oracallib.php to build
 a customized PHP interface.
 
 NOTES
+-----
 - The Oracle SDK should be used as a definitive guide in almost all cases.
 - Please see https://github.com/eirikref/oracal/ for more details.
 
 INSTALL
 -------
-
-The install has not been modified for the .45 release.
+The installation procedures have not been modified for the .45 release.
 
 1. Locate your PHP source code directory, enter the directory ext and unpack the
 Oracle Calendar PHP Extension source code. Make sure it ends up in a
@@ -44,7 +44,6 @@ that it contains the line extension=oracal.so.
 
 KNOWN BUGS
 ----------
-
 - As far as I can tell, passing CAPI_THISANDFUTURE or CAPI_THISANDPAST does not
 seem to work. If you have any suggestions please contact me.
 - Does not install on Solaris. Again, if you have any suggestions, please
@@ -76,6 +75,7 @@ If anyone actually uses this, send Joe an email, as he is pretty sure making
 releases public is pointless. 
 
 CONTACT
-herringm@denison.edu - oracal.c, minor php changes
-joepletcher@gmail.com - oracal.c, minor php changes
-mjm85@case.edu - *.php
+-------
+- herringm@denison.edu - oracal.c, minor php changes
+- joepletcher@gmail.com - oracal.c, minor php changes
+- mjm85@case.edu - *.php
