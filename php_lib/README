@@ -1,0 +1,8 @@
+These files contain code meant to help you understand and use the
+Oracle Calendar extension.
+
+oracallib.php is a wrapper around the extension itself, meant to make
+it easier to handle the UTF8 encoding and decoding and so on.
+
+Not all the code has been fully tested, but what has been tested seems
+to work just fine.  Feel free to send patches to joepletcher@gmail.com

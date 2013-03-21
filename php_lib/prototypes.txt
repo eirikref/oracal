@@ -1,0 +1,458 @@
+<?php
+/* Name:        calendar
+ * Description: Connects to and modifys a given calendar connection
+ */
+class calendar
+    {
+    /* Name:        calendar()
+     * Parameters:  string Host, string User, string Password
+     * Returns:     None
+     * Description: Creates a calendar object, connects to the Oracle Calendar
+     *              server
+     */
+    function calendar($host, $username, $password)
+
+    /* Name:        connect()
+     * Parameters:  None 
+     * Returns:     bool; TRUE if connection was successful, FALSE if
+     *              connection failed
+     * Description: Connects to the Oracle Calendar server
+     */
+    function connect()
+
+    /* Name:        disconnect()
+     * Parameters:  None
+     * Returns:     bool; TRUE if disconnected, FALSE if failed or connection
+     *              does not exist
+     * Description: Disconnects from the Oracle Calendar server
+     */
+    function disconnect()
+
+    /* Name:        error()
+     * Parameters:  None
+     * Returns:     string or bool; Error code if error exists, FALSE if there
+     *              is no error
+     * Description: Returns the error reported by the Oracle Calendar server
+     */
+    function error()
+
+    /* Name:        get_identifier()
+     * Parameters:  None
+     * Returns:     resource; unique identifier of the connection
+     * Description: Returns the unique identifier of the connection used by the
+     *              current calendar
+     */
+    function get_identifier()
+
+    /* Name:        get_capabilities()
+     * Parameters:  (optional) int num
+     * Returns:     string or bool; details of the capabilities of the Oracle
+     *              Calendar server, or FALSE if there was an error
+     * Description: Returns useful information about the Oracle Calendar server
+     */
+    function get_capabilities($num = NULL)
+
+    /* Name:        open_agenda()
+     * Parameters:  string agendaname
+     * Returns:     bool; TRUE upon success, FALSE upon failure
+     * Description: Opens a given agenda on the current connection
+     */
+    function open_agenda($string)
+
+    /* Name:        close_agendas()
+     * Parameters:  None
+     * Returns:     bool; TRUE upon success, FALSE upon failure
+     * Description: Closes all open agendas on the current connection, called
+     *              by disconnect()
+     */
+    function close_agendas()
+
+    /* Name:        get_agendas()
+     * Parameters:  None
+     * Returns:     array or bool; agendas on success, FALSE on failure
+     * Description: Returns the array of the open agendas on the current
+     *              connection
+     */
+    function get_agendas()
+
+    /* Name:        get_daily_events()
+     * Parameters:  int year, int month, int day, (optional) int FLAGS
+     * Returns:     string; data
+     * Description: Fetches the events for a given day and returns the decoded
+     *              data
+     */
+    function get_daily_events($year, $month, $day, $flags = CSDK_FLAG_NONE)
+
+    /* Name:        get_events_by_range()
+     * Parameters:  string start, string end, (optional) int FLAGS
+     * Returns:     string; data
+     * Description: Fetches all events within a given range and returns the
+     *              decoded data
+     */
+    function get_events_by_range($dtstart, $dtend, $flags = CSDK_FLAG_NONE)
+
+    /* Name:        decode_events_data()
+     * Parameters:  string rawdata
+     * Returns:     string; data
+     * Description: Decodes the data from the calendar to make paring easier
+     */
+    function decode_event_data($string)
+
+    /* Name:        check_timestamp()
+     * Parameters:  string timestamp
+     * Returns:     bool; TRUE if it is a valid datetime timestamp, FALSE if it
+     *              is not
+     * Description: Checks to see if the timestamp is in the yyyymmddThhmmssZ
+     *              format: the required format iCal as defined in RFC 2445 
+     */
+    function check_timestamp($ts)
+
+    /* Name:        check_uid_array()
+     * Parameters:  array uids
+     * Returns:     bool; TRUE if uid array is valid, FALSE if it is not
+     * Description: Checks to see if each value in the UID array is a string
+     */
+    function check_uid_array($uids)
+
+    /* Name:        get_events_by_uid()
+     * Parameters:  string uid OR array uids, (optional) string rid,
+     *              (optional) int flags
+     * Returns:     string; data
+     * Description: Fetches the event with the given UID(s) and returns the
+     *              decoded data
+     */
+    function get_events_by_uid($uid, $rid = NULL, $flags = CSDK_FLAG_NULL)
+
+    /* Name:        delete_events()
+     * Parameters:  string uid, string datetime
+     * Returns:     bool; TRUE on success, FALSE on failure
+     * Description: Deletes an event from the agenda with the given UID
+     */
+    function delete_events($uid, $datetime)
+
+    /* Name:        store_appointments()
+     * Parameters:  string start, string end, string summmary, string location,
+     *              array attendees, (optional) string description,
+     *              (optional) string class, (optional) string status,
+     *              (optional) string rrule, (optional) int FLAGS
+     * Returns:     array; uids
+     * Description: Stores an appointment by constucting the formatted string
+     *              of data to be inserted into the Oracle Calendar as defined
+     *              in RFC 2445 and returns the UIDs that were created
+     */
+    function store_appointment($start, $end, $summary, $location, $attendees,
+        $description = "None",
+        $class       = "PUBLIC",
+        $status      = "CONFIRMED",
+        $rrule       = NULL,
+        $flags       = CSDK_FLAG_NULL)
+
+    /* Name:        modify_appointments()
+     * Parameters:  resource id, string summary, string start, string end,
+     *              string location, array attendees, string description,
+     *              string class, string starus, (optional) string rid
+     * Returns:     array; uids
+     * Description: Modifies the appointment with the given UID and RID (if it
+     *              is specified) with the new information
+     */
+    function modify_appointment($uid, $start, $end, $summary, $location,
+        $attendees, $description, $class, $status, $rid = NULL)
+
+    /* Name:        store_events()
+     * Parameters:  string data, int FLAGS
+     * Returns:     array; uids
+     * Description: Stores events on the agenda server using a string of raw
+     *              data that must be preformatted correctly as defined in RFC
+     *              2445 and returns the UIDs of
+     *              the events added
+     */
+    function store_events($data, $flags)
+    }
+
+
+/* Name:        vcalendar_parser
+ * Description: Parses information 
+ */
+class vcalendar_parser
+    {
+    /* Name:        vcalendar_parser()
+     * Parameters:  string data
+     * Returns:     None
+     * Description: Creates a new vcalendar_parser class and sets the raw data
+     *              for the new object.
+     */
+    function vcalendar_parser($data)
+
+    /* Name:        parse()
+     * Parameters:  None
+     * Returns:     array; events
+     * Description: Parses the data by converting it from raw output from the
+     *              Oracle Calendar server, unfolding the lines as described in
+     *              RFC 2445, removing extra whitespace, and splits each event
+     *              into a new vcalendar_event object with the data given from
+     *              the Oracle Calendar server. It then returns the array of
+     *              event data 
+     */
+    function parse()
+    }
+
+
+/* Name:        vcalendar_event
+ * Description: Creates an object to store data for each event
+ */
+class vcalendar_event
+    {
+    /* Name:        vcalendar_event()
+     * Parameters:  None
+     * Returns:     None
+     * Description: Empty constructor
+     */
+    function vcalendar_event()
+
+    /* Name:        set_uid()
+     * Parameters:  string 
+     * Returns:     bool; TRUE upon success, FALSE upon failure
+     * Description: Sets the uid variable for the current event
+     */
+    function set_uid($string)
+
+    /* Name:        get_uid()
+     * Parameters:  None
+     * Returns:     string; uid
+     * Description: Returns the value for uid (UniqueID) in the current event
+     */
+    function get_uid()
+
+    /* Name:        set_rid()
+     * Parameters:  string
+     * Returns:     bool; TRUE upon success, FALSE upon failure
+     * Description: Sets the rid variable for the current event
+     */
+    function set_rid($string)
+
+    /* Name:        get_rid()
+     * Parameters:  None
+     * Returns:     string; rid
+     * Description: Returns the value for rid (ResourceID) in the current event
+     */
+    function get_rid()
+
+    /* Name:        set_dtstamp()
+     * Parameters:  string dtstamp
+     * Returns:     bool; TRUE upon success, FALSE upon failure
+     * Description: Sets the dtstamp variable for the current event
+     */
+    function set_dtstamp($string)
+
+    /* Name:        get_dtstamp()
+     * Parameters:  None
+     * Returns:     string; dtstamp
+     * Description: Returns the value for dtstamp in the current event
+     */
+    function get_dtstamp()
+
+    /* Name:        set_dtstart()
+     * Parameters:  string dtstart
+     * Returns:     bool; TRUE upon success, FALSE upon failure
+     * Description: Sets the dtstart variable for the current event
+     */
+    function set_dtstart($string)
+
+    /* Name:        get_dtstart()
+     * Parameters:  None
+     * Returns:     string; dtstart
+     * Description: Returns the value for dtstart in the current event
+     */
+    function get_dtstart()
+
+    /* Name:        set_dtend()
+     * Parameters:  string dtend
+     * Returns:     bool; TRUE upon success, FALSE upon failure
+     * Description: Sets the dtend variable for the current event
+     */
+    function set_dtend($string)
+
+    /* Name:        get_dtend()
+     * Parameters:  None
+     * Returns:     string; dtend
+     * Description: Returns the value for dtend in the current event
+     */
+    function get_dtend()
+
+    /* Name:        set_category()
+     * Parameters:  string category
+     * Returns:     bool; TRUE upon success, FALSE upon failure
+     * Description: Sets the category variable for the current event
+     */
+    function set_category($string)
+
+    /* Name:        get_category()
+     * Parameters:  None
+     * Returns:     string; category
+     * Description: Returns the value for category in the current event
+     */
+    function get_category()
+
+    /* Name:        set_class()
+     * Parameters:  string class
+     * Returns:     bool; TRUE upon success, FALSE upon failure
+     * Description: Sets the class variable for the current event
+     */
+    function set_class($string)
+
+    /* Name:        get_class()
+     * Parameters:  None
+     * Returns:     string; class
+     * Description: Returns the value for class in the current event
+     */
+    function get_class()
+
+    /* Name:        set_priority()
+     * Parameters:  string priority
+     * Returns:     bool; TRUE upon success, FALSE upon failure
+     * Description: Sets the priority variable for the current event
+     */
+    function set_priority($string)
+
+    /* Name:        get_priority()
+     * Parameters:  None
+     * Returns:     string; priority
+     * Description: Returns the value for priority in the current event
+     */
+    function get_priority()
+
+    /* Name:        set_status()
+     * Parameters:  string status
+     * Returns:     bool; TRUE upon success, FALSE upon failure
+     * Description: Sets the status variable for the current event
+     */
+    function set_status($string)
+
+    /* Name:        get_status()
+     * Parameters:  None
+     * Returns:     string; status
+     * Description: Returns the value for status in the current event
+     */
+    function get_status()
+
+    /* Name:        set_description()
+     * Parameters:  string description
+     * Returns:     bool; TRUE upon success, FALSE upon failure
+     * Description: Sets the description variable for the current event
+     */
+    function set_description($string)
+
+    /* Name:        get_description()
+     * Parameters:  None
+     * Returns:     string; description
+     * Description: Returns the value for description in the current event
+     */
+    function get_description()
+
+    /* Name:        set_summary()
+     * Parameters:  string summary
+     * Returns:     bool; TRUE upon success, FALSE upon failure
+     * Description: Sets the summary variable for the current event
+     */
+    function set_summary($string)
+
+    /* Name:        get_summary()
+     * Parameters:  None
+     * Returns:     string; summary
+     * Description: Returns the value for summary in the current event
+     */
+    function get_summary()
+
+    /* Name:        set_location()
+     * Parameters:  string location
+     * Returns:     bool; TRUE upon success, FALSE upon failure
+     * Description: Sets the location variable for the current event
+     */
+    function set_location($string)
+
+    /* Name:        get_location()
+     * Parameters:  None
+     * Returns:     string; location
+     * Description: Returns the value for location in the current event
+     */
+    function get_location()
+
+    /* Name:        set_organizer()
+     * Parameters:  string organizer
+     * Returns:     bool; TRUE upon success, FALSE upon failure
+     * Description: Sets the organizers array for the current event
+     */
+    function set_organizer($string)
+
+    /* Name:        get_organizer()
+     * Parameters:  None
+     * Returns:     array; organizer
+     * Description: Returns the value for organizer in the current event
+     */
+    function get_organizer()
+
+    /* Name:        set_attendees()
+     * Parameters:  string attendees
+     * Returns:     bool; TRUE upon success, FALSE upon failure
+     * Description: Sets the attendees array for the current event
+     */
+    function set_attendees($string)
+
+    /* Name:        get_attendees()
+     * Parameters:  None
+     * Returns:     array; attendees
+     * Description: Returns the value for attendees in the current event
+     */
+    function get_attendees()
+
+    /* Name:        set_resources()
+     * Parameters:  string resources
+     * Returns:     bool; TRUE upon success, FALSE upon failure
+     * Description: Sets the resources array for the current event
+     */
+    function set_resources($string)
+
+    /* Name:        get_resources()
+     * Parameters:  None
+     * Returns:     array; resources
+     * Description: Returns the value for resources in the current event
+     */
+    function get_resources()
+
+    /* Name:        set_trigger()
+     * Parameters:  string trigger
+     * Returns:     bool; TRUE upon success, FALSE upon failure
+     * Description: Sets the trigger variable for the current event
+     */
+    function set_trigger($string)
+
+    /* Name:        get_trigger()
+     * Parameters:  None
+     * Returns:     string; trigger
+     * Description: Returns the value for trigger in the current event
+     */
+    function get_trigger()
+
+    /* Name:        set_type()
+     * Parameters:  string type
+     * Returns:     bool; TRUE upon success, FALSE upon failure
+     * Description: Sets the type variable for the current event
+     */
+    function set_type($string)
+
+    /* Name:        get_type()
+     * Parameters:  None
+     * Returns:     string; type
+     * Description: Returns the value for type in the current event
+     */
+    function get_type()
+
+    /* Name:        get_data()
+     * Parameters:  (optional) string id, (optional) bool hide
+     * Returns:     None
+     * Description: Prints out all the information stored in the event object
+     *              in a HTML table with the id set to id and hidden if hide
+     *              is set to TRUE
+     */
+    function get_data($id = "id", $hide = FALSE)
+?>

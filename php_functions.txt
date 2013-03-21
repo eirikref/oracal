@@ -1,0 +1,86 @@
+/*
+ * Name: oracal_connect()
+ * Params: string host, string username, string password
+ * Returns: resource
+ * Desc: Connects to an Oracal Server
+ */
+
+/*
+ * Name: oracal_disconnect()
+ * Params: resource link_identifier
+ * Returns: bool, false on failure, true on success
+ * Desc: Disconnects from an Oracal Server
+ */
+
+/* Name: oracal_error()
+ * Params: None
+ * Returns: bool, false on failure, true on success
+ * Desc: Returns the status of the last operation
+ */
+
+/*
+ * Name: oracal_get_capabilities()
+ * Params: (optional) resource link_identifier
+ * Returns: array of strings containing extention/server info
+ * Desc: Returns information regarding oracal extention as well as server info
+ *       if connected
+ */
+
+/*
+ * Name: oracal_get_agenda_info()
+ * Params: resource link_identifier, (optional) int index
+ * Returns: array of strings containing agenda info
+ * Desc: Returns information about the current open agenda
+ */
+
+/*
+ * Name: oracal_open_agenda()
+ * Params: resource link_identifier, string username
+ * Returns: bool, false on failure, true on success
+ * Desc: Opens an agenda for modification
+ */
+
+/*
+ * Name: oracal_close_agendas()
+ * Params: (optional) resource link_identifier
+ * Returns: bool, false on failure true on success
+ * Desc: Cleans up and closes open agendas
+ */
+
+/*
+ * Name: oracal_events_by_range()
+ * Params: resource link_identifier, string startdate, string enddate,
+ *         (optional) int flags
+ * Returns: string
+ * Desc: Gets the events on an open agenda between the start and end dates,
+ *       returned as a string. If flags is not specified it defaults to
+ *       CSDK_FLAG_NONE
+ */
+
+/* Name: oracal_events_by_uid()
+ * Params: resource link_identifier, string uid, (optional) string rid,
+ *         (optional) int flags
+ * Returns: string
+ * Desc: Gets an event or events from an open agenda based on their UID's,
+ *       returned as a string. If flags is not specified it defaults to
+ *       CSDK_FLAG_NONE
+ */
+
+/* Name: oracal_delete_by_uid()
+ * Params: resource link_identifier, array uid, (optional) flags
+ *         (optional) string datetime.
+ * Returns: string
+ * Desc: Deletes an event by its UID. If a reoccurence should be deleted pass
+ *       NULL as the datetime (or don't pass it); otherwise specify a datetime
+ *       for deleting a specific event. If flags is not specified it defaults
+ *       to CSDK_FLAG_NONE
+ */
+
+/* Name: oracal_store_events()
+ * Params: resource link_identifier, string data, (optional) flags
+ * Returns: array
+ * Desc: Stores an event in the oracal server, returns an array of UID's on
+ *       success. If flags is not specified it defaults to
+ *       CSDK_FLAG_STORE_CREATE
+ */
+

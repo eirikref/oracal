@@ -1,0 +1,30 @@
+Changes for v0.45
+- Added ability to edit times and dates by using REPLACE instead of MODIFY
+- Modify_appointment() can now change dates and times
+- Updated modify_appointment
+- Minor C cleanup
+- Fixed bug in oracal_close_agendas() where conn->open_agendas was never reset to 0 after agendas were closed.
+- Fixed misc php bugs
+
+Changes for v0.4a
+- Added ability to edit times and dates of events
+
+Changes for v0.4
+- Added flags as optional params for
+	- oracal_events_by_range()
+	- oracal_event_by_uid()
+	- oracal_delete_events()
+	- oracal_store_events()
+- Fixed function prototypes
+- Cleaned up the C style in many places which had an added benifit of fixing
+  some bugs
+- Fixed some generic bugs that would result in undefined behavior/segfaults
+- Cleaned up some leaky memory
+- Properly initalized sessions
+- Properly initalized result resources
+- Initalized the status to CAPI_STATUS_OK at the start of methods for better
+  error checking
+- initalized counting variables, changed them from longs to ints to save
+  memory
+- Added the ability to delete a single event in a reoccurence
+- Forced username and password to be required for connecting to a server
