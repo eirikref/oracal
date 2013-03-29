@@ -10,6 +10,14 @@ plugin easier found in the php_lib folder. The classes that are used by the
 other files are found in oracallib.php. You may use the oracallib.php to build
 a customized PHP interface.
 
+A WORD OF WARNING
+-----------------
+This extension was written between 2003 and 2004 (or something like
+that), has not been compiled since, and is not being maintained. I
+happened to stumble upon the source code on an old computer and
+figured it couldn't harm to put it on github instead. Please just
+don't expect bugs or feature requests to be taken care of.
+
 NOTES
 -----
 - The Oracle SDK should be used as a definitive guide in almost all cases.
