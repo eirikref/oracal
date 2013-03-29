@@ -15,8 +15,9 @@ A WORD OF WARNING
 This extension was written between 2003 and 2004 (or something like
 that), has not been compiled since, and is not being maintained. I
 happened to stumble upon the source code on an old computer and
-figured it couldn't harm to put it on github instead. Please just
-don't expect bugs or feature requests to be taken care of.
+figured it couldn't harm to share it on GitHub. Please just don't have
+any expectations that bugs will be fixed or feature requests taken
+care of.
 
 NOTES
 -----
